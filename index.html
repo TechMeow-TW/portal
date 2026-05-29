@@ -1,2 +1,295 @@
-<h1>It's Working</h1>
-<h2>Pls use correct link to href.</h2>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業雙雲端入口平台 | 貓咪科技 TechMeow</title>
+    <style>
+        :root {
+            --ms-color: #0078d4;
+            --ms-hover: #005a9e;
+            --google-color: #1a73e8;
+            --google-hover: #1557b0;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 頂部雙色裝飾條 */
+        .top-bar {
+            height: 5px;
+            background: linear-gradient(90deg, var(--ms-color) 50%, var(--google-color) 50%);
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 50px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 標題區塊 */
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.6s ease-out;
+        }
+
+        .logo-placeholder {
+            font-size: 38px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-placeholder span {
+            color: var(--ms-color);
+        }
+
+        .header-section h1 {
+            font-size: 26px;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .header-section p {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        /* 雙雲端卡片佈局 */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            margin-bottom: 50px;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .portal-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 45px 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 微軟與谷歌各自的頂部邊框線 */
+        .card-ms { border-top: 5px solid var(--ms-color); }
+        .card-google { border-top: 5px solid var(--google-color); }
+
+        /* SVG 圖標外框架 */
+        .brand-icon-wrapper {
+            width: 75px;
+            height: 75px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-icon-wrapper svg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .portal-card h2 {
+            font-size: 22px;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .portal-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 320px;
+        }
+
+        /* 按鈕樣式 */
+        .action-btn {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            padding: 12px 0;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 25px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        .card-ms .action-btn { background-color: var(--ms-color); }
+        .card-ms .action-btn:hover { background-color: var(--ms-hover); }
+
+        .card-google .action-btn { background-color: var(--google-color); }
+        .card-google .action-btn:hover { background-color: var(--google-hover); }
+
+        /* 系統維運狀態 */
+        .system-status {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #34a853;
+            border-radius: 50%;
+            margin-right: 6px;
+            box-shadow: 0 0 8px #34a853;
+        }
+
+        /* 頁尾 */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 25px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+
+        footer a {
+            color: var(--ms-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* CSS 動畫 */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 響應式：手機版改為上下排列 */
+        @media (max-width: 768px) {
+            .portal-grid { grid-template-columns: 1fr; gap: 25px; }
+            .container { padding: 30px 15px; }
+            .portal-card { padding: 35px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar"></div>
+
+    <div class="container">
+        <!-- 標題區 -->
+        <header class="header-section">
+            <h1>企業雲端服務入口平台</h1>
+            <p>請選擇您欲登入或管理的公務雲端系統</p>
+        </header>
+
+        <!-- 雙平台分流卡片 -->
+        <main class="portal-grid">
+            
+            <!-- Microsoft 365 區塊 -->
+            <a href="ms365.html" class="portal-card card-ms">
+                <div class="brand-icon-wrapper">
+                    <!-- Microsoft 365 官方精準原色 SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23">
+                        <path fill="#f35325" d="M0 0h11v11H0z"/>
+                        <path fill="#00a4ef" d="M12 0h11v11H12z"/>
+                        <path fill="#85bc24" d="M0 12h11v11H0z"/>
+                        <path fill="#ffb900" d="M12 12h11v11H12z"/>
+                    </svg>
+                </div>
+                <h2>Microsoft 365 系統</h2>
+                <p>存取 OneDrive 企業雲端硬碟、Outlook 公務郵件、Teams 協作工具以及 Office 線上版應用。</p>
+                <span class="action-btn">進入 Microsoft 365</span>
+            </a>
+
+            <!-- Google Workspace 區塊 -->
+            <a href="gapps.html" class="portal-card card-google">
+                <div class="brand-icon-wrapper">
+                    <!-- Google Workspace / 雲端硬碟官方原色多邊形 SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1443.2 1250">
+                        <path fill="#FFC107" d="M481.1 0h481.1l481 833.3H962.1z"/>
+                        <path fill="#FF9800" d="M962.1 833.3L1202.6 1250H240.5L0 833.3z"/>
+                        <path fill="#4CAF50" d="M0 833.3L240.5 416.7h481.1l240.5 416.6z"/>
+                        <path fill="#1976D2" d="M240.5 416.7L481.1 0l240.5 416.7H240.5z"/>
+                    </svg>
+                </div>
+                <h2>Google Workspace</h2>
+                <p>存取 Google 雲端硬碟 (Drive)、Google 日曆、試算表及相關雲端原生協作工具。</p>
+                <span class="action-btn">進入 Google Apps</span>
+            </a>
+
+        </main>
+
+        <!-- 運作狀態 -->
+        <div class="system-status">
+            <span class="status-dot"></span> 雙雲端認證閘道與現有平台服務皆運作正常
+        </div>
+    </div>
+
+    <!-- 頁尾資管中心資訊 -->
+    <footer>
+        <p>© 2026 TechMeow Development Team. 所有著作權所有。</p>
+        <p>系統維護單位：資訊管理中心 (資管中心) | 技術支援信箱：<a href="mailto:webmaster@gs.techmeow.tw">webmaster@gs.techmeow.tw</a></p>
+    </footer>
+
+</body>
+</html>
