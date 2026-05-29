@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業專屬辦公入口平台</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding-top: 50px; background-color: #f4f5f7; }
+        .loader { border: 16px solid #f3f3f3; border-top: 16px solid #0078d4; border-radius: 50%; width: 60px; height: 60px; animation: spin 2s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+    <script>
+        // 設定目的地 URL（以下為微軟官方全域登入點，會自動帶入企業單一登入 SSO）
+        // 1. 如果要直接去 Outlook: https://outlook.office.com
+        // 2. 如果要直接去 OneDrive: https://www.microsoft365.com/launch/onedrive
+        const targetUrl = "https://www.microsoft365.com/launch/onedrive";
+
+        window.onload = function() {
+            setTimeout(function() {
+                window.location.href = targetUrl;
+            }, 1500); // 延遲 1.5 秒跳轉，給予使用者提示
+        };
+    </script>
+</head>
+<body>
+    <h2>歡迎使用企業專屬雲端平台</h2>
+    <p>正在為您安全導向至 OneDrive / Microsoft 365 服務...</p>
+    <div class="loader"></div>
+    <p style="font-size: 12px; color: #666;">若瀏覽器沒有自動跳轉，請 <a id="direct-link" href="https://www.microsoft365.com/launch/onedrive">點擊此處</a>。</p>
+</body>
+</html>
