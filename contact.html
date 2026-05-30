@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯絡網管中心 | 貓咪科技 TechMeow</title>
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --primary-hover: #005a9e;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --border-color: #dadce0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 頂部科技感裝飾條 */
+        .top-bar {
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color) 0%, #1a73e8 100%);
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 返回首頁連結 */
+        .back-link {
+            align-self: flex-start;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* 表單主卡片 */
+        .form-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 40px 35px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-top: 5px solid var(--primary-color);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .target-email {
+            display: inline-block;
+            background-color: #e8f0fe;
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        /* 表單欄位樣式 */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: #fafafa;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            background-color: #fff;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.15);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235f6368' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* 按鈕與發送狀態 */
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .submit-btn:disabled {
+            background-color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* 提示訊息 */
+        .alert {
+            padding: 14px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 25px;
+            display: none;
+            line-height: 1.5;
+        }
+        .alert-success {
+            background-color: #e6f4ea;
+            color: #137333;
+            border: 1px solid #ceead6;
+        }
+        .alert-error {
+            background-color: #fce8e6;
+            color: #c5221f;
+            border: 1px solid #fad2cf;
+        }
+
+        /* 頁尾 */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .form-card { padding: 25px 20px; }
+            .container { margin: 20px auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar"></div>
+
+    <div class="container">
+        <a href="index.html" class="back-link">← 返回雲端服務入口</a>
+
+        <div class="form-card">
+            <div class="form-header">
+                <h1>聯絡資訊管理中心</h1>
+                <p>填寫下表將自動提交至網管中心管理後台</p>
+                <div class="target-email">webmaster@gs.techmeow.tw</div>
+            </div>
+
+            <div id="successAlert" class="alert alert-success">
+                ✓ <b>回報成功！</b>資料已安全同步至資管中心系統，我們將儘速處理您的請求。
+            </div>
+            <div id="errorAlert" class="alert alert-error">
+                ⚠️ <b>傳送失敗：</b>無法與遠端伺服器建立連線。請檢查網路或稍後再試。
+            </div>
+
+            <form id="contactForm">
+                
+                <div class="form-group">
+                    <label for="username">您的姓名</label>
+                    <input type="text" id="username" class="form-control" placeholder="請輸入姓名" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="useremail">電子信箱</label>
+                    <input type="email" id="useremail" class="form-control" placeholder="name@gs.techmeow.tw" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">郵件主旨</label>
+                    <input type="text" id="subject" class="form-control" placeholder="請簡述您的回報事由" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">詳細說明內容</label>
+                    <textarea id="message" class="form-control" placeholder="請詳細說明您遇到的問題、故障代碼或申請範圍..." required></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="submit-btn">提交電子郵件回報</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 TechMeow Development Team. 資訊管理中心</p>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // 阻斷原本網頁重新整理行為
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successAlert = document.getElementById('successAlert');
+            const errorAlert = document.getElementById('errorAlert');
+            
+            // 隱藏先前的提示
+            successAlert.style.display = 'none';
+            errorAlert.style.display = 'none';
+            
+            // 按鈕進入讀取狀態
+            submitBtn.disabled = true;
+            submitBtn.textContent = "正在安全同步中...";
+
+            // 抓取前端表單值
+            const name = document.getElementById('username').value;
+            const email = document.getElementById('useremail').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            /* 【技術核心】將 Google 表單的 viewform 改成 formResponse
+               並正確填入您提供的 entry 欄位代號
+            */
+            const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf4-ikMo7p5nguLahxLWFtVcSxdadG0hqs1_v2Ldse7InP9gA/formResponse";
+            
+            // 建立 FormData 物件
+            const formData = new FormData();
+            formData.append('entry.1756399465', name);
+            formData.append('entry.495831515', email);
+            formData.append('entry.1097677773', subject);
+            formData.append('entry.830958887', message);
+
+            // 使用 fetch API 以 mode: 'no-cors' 非同步發送資料到 Google Forms 伺服器
+            fetch(googleFormUrl, {
+                method: 'POST',
+                mode: 'no-cors', // 避開 Google 伺服器的跨網域 CORS 阻擋
+                body: formData
+            })
+            .then(() => {
+                // 成功處理
+                successAlert.style.display = 'block';
+                submitBtn.textContent = "提交成功";
+                document.getElementById('contactForm').reset(); // 清空輸入欄位
+            })
+            .catch((error) => {
+                // 失敗處理
+                console.error('Error:', error);
+                errorAlert.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = "再次嘗試提交";
+            });
+        });
+    </script>
+</body>
+</html>
